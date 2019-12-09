@@ -150,7 +150,7 @@
               // eslint-disable-next-line no-console
               this.activeIndex = key;
               console.log('handleSelect', key, keyPath, this.activeIndex);
-              // this.$router.push({name:key})
+              this.$router.push({name:key})
             },
             handleClose(key, keyPath) {
               // eslint-disable-next-line no-console
