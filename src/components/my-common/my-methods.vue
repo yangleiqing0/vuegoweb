@@ -147,9 +147,7 @@
                   } else {
                       that.my_del_confirm(
                           () => {
-                              that.$axios.post(that.$root.$api + route, {
-                                  'id': row,
-                              })
+                              that.$axios.post(that.$root.$api + route, row )
                                   .then(() => {
                                       that.request();
                                       if(that.search) {
@@ -158,8 +156,8 @@
                                           this.search='';
                                           this.search=search
                                       }
-                                      this.my_request(that.table_name + '_list',that, true, false, 1);
-                                      this.my_request(that.table_name + '_list',that, false, true)
+                                      // this.my_request(that.table_name + '_list',that, true, false, 1);
+                                      // this.my_request(that.table_name + '_list',that, false, true)
                                   })
                           })
                   }
@@ -264,7 +262,7 @@
   };
 
   Vue.prototype.my_get_data = function (id, route, that) {
-      that.$axios.post(that.$root.$api + route, {id:id})
+      that.$axios.get(that.$root.$api + route + "/" + id)
           .then(res => {
               that.Form = res.list;
               if (route === 'job_list'){

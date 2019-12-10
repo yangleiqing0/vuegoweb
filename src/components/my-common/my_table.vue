@@ -169,9 +169,9 @@
              }
          },
          handleDelete(index, row) {
-             if (this.table_name !== 'scene'){this.my_del(this.table_name+'_del', row, this)}
+             if (this.table_name !== 'scene'){this.my_del(this.table_name+'/del', row, this)}
              else{
-                 if(row.children === '' || row.children){this.my_del(this.table_name+'_del', row, this)}
+                 if(row.children === '' || row.children){this.my_del(this.table_name+'/del', row, this)}
                  else{this.my_del('case_del', row, this)}
              }
          },

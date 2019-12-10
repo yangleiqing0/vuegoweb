@@ -42,17 +42,18 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }else {
-            this.$axios.post('/api/mysql_validate', {
-                name: value,
-                mysql_id: this.Form.id
-                })
-                .then(res=>{
-                    if(res) {
-                        callback();
-                    }else{
-                        return callback(new Error('名称已存在'));
-                    }
-                });
+            // this.$axios.post('/api/mysql_validate', {
+            //     name: value,
+            //     mysql_id: this.Form.id
+            //     })
+            //     .then(res=>{
+            //         if(res) {
+            //             callback();
+            //         }else{
+            //             return callback(new Error('名称已存在'));
+            //         }
+            //     });
+            callback()
         }
       };
       var checkValue = (rule, value, callback) => {
@@ -90,14 +91,14 @@
               }
                 console.log('mysql', this.Form)
                 if (this.$route.params.id && this.$route.params.row === undefined){
-                  this.my_get_data(this.$route.params.id, 'mysql_list', this)
+                  this.my_get_data(this.$route.params.id, 'mysql/detail', this)
                   console.log('mysql_edit_refresh', this.Form);
               }
             },
             submitForm(formName) {
             this.$refs[formName].validate((valid) => {
               if (valid) {
-                  this.$axios.post('/api/mysql_edit',
+                  this.$axios.post('/api/mysql/edit',
                         this.Form
               )
                       .then(()=> {
