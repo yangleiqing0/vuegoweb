@@ -141,13 +141,22 @@
 
 
   Vue.prototype.my_del = function (route, row, that) {
-                  if (row === 'more') row = that.multipleSelection;
+                  if (row === 'more') {
+                      let ids_list = [];
+                      for(let i=0;i<that.multipleSelection.length;i++){
+                         ids_list.push(that.multipleSelection[i].id)
+                      }
+                      row = ids_list;
+                  }else {
+                      row = row.id
+                  }
+                  console.log("row=", row)
                   if (row.length === 0) {
                       that.my_notify({info: '未选择数据'})
                   } else {
                       that.my_del_confirm(
                           () => {
-                              that.$axios.post(that.$root.$api + route, row )
+                              that.$axios.post(that.$root.$api + route, {ids:row})
                                   .then(() => {
                                       that.request();
                                       if(that.search) {
@@ -165,9 +174,8 @@
 
   Vue.prototype.my_request = function (route, that, all_first=false, all=false, page, pagesize=10){
           that.$axios.get(that.$root.$api + route, {
-              page: page || that.currentPage || 1,
-              pagesize:that.PageSize || pagesize,
-              all:all
+              params:{page: page || that.currentPage || 1,
+              pagesize:that.PageSize || pagesize}
           })
               .then(res=> {
                   if(!all_first && !all){
