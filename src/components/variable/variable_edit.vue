@@ -79,7 +79,7 @@
                     console.log('variable_edit page:', this.page)
                 }
                 if (this.$route.params.id && this.$route.params.row === undefined){
-                  this.my_get_data(this.$route.params.id, 'variable_list', this)
+                  this.my_get_data(this.$route.params.id, 'variable/detail', this)
                   console.log('variable_edit_refresh', this.Form);
               }
             },

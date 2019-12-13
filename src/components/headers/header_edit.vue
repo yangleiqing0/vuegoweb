@@ -82,7 +82,7 @@
                     this.Form = this.$route.params.row;
                 }
                 if (this.$route.params.id && this.$route.params.row === undefined){
-                  this.my_get_data(this.$route.params.id, 'header_list', this)
+                  this.my_get_data(this.$route.params.id, 'header/detail', this)
                   console.log('header_edit_refresh', this.Form);
               }
             },

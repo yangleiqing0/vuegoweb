@@ -13,18 +13,12 @@ const store = new Vuex.Store({
       // api:'http://127.0.0.1:5000/',
       // 设置请求的地址
       email_methods:[{key:1, value:'图片'},{key:2, value:'附件'}],
-      my_list : ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email', 'job'],
+      my_list : ['group', 'header', 'mysql'],
       is_start_status:[false,true],
       my_all_table: {
-      case_list:[],
       group_list:[],
       header_list:[],
-      mysql_list:[],
-      report_list:[],
-      scene_list:[],
-      variable_list:[],
-      email_list:[],
-      job_list:[],
+      mysql_list:[]
       },
       case_url:[],
       // 每个数据组可显示与user_id=用户的数据
