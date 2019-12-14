@@ -252,16 +252,7 @@
             mysqls:this.$store.state.my_all_table['mysql_list'],
             page:1,
             Form: {
-                wait:{
-                old_wait_sql:'',
-                old_wait:'',
-                old_wait_time:'',
-                old_wait_mysql: '',
-                new_wait_sql:'',
-                new_wait:'',
-                new_wait_time:'',
-                new_wait_mysql:'',
-                },
+                id:0,
                 name: '',
                 group_id:1,
                 header_id:1,
@@ -278,8 +269,8 @@
                 new_sql_register_variable:'',
                 old_sql_hope_result:'',
                 new_sql_hope_result:'',
-                old_sql_id:null,
-                new_sql_id:null,
+                old_sql_id:0,
+                new_sql_id:0,
                 old_wait_sql:'',
                 old_wait:'',
                 old_wait_time:'',
@@ -287,8 +278,19 @@
                 new_wait_sql:'',
                 new_wait:'',
                 new_wait_time:'',
-                new_wait_mysql:'',
-                scene_id: null
+                new_wait_mysql:0,
+                scene_id: 0,
+                wait:{
+                old_wait_sql:'',
+                old_wait:'',
+                old_wait_time:'',
+                old_wait_mysql: 0,
+                new_wait_sql:'',
+                new_wait:'',
+                new_wait_time:'',
+                new_wait_mysql:0,
+                testcase_id: 0,
+                },
             },
             rules: {
                 name: [{ validator: checkName, trigger: 'blur' }],
@@ -362,6 +364,7 @@
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
+                this.Form.wait.testcase_id = this.Form.id;
                 console.log('push valid', this.page)
                 this.Form.case_method = this.value;
                 this.$axios.post('/api/case/edit', this.Form)
