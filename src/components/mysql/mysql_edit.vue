@@ -42,18 +42,18 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }else {
-            // this.$axios.post('/api/mysql_validate', {
-            //     name: value,
-            //     mysql_id: this.Form.id
-            //     })
-            //     .then(res=>{
-            //         if(res) {
-            //             callback();
-            //         }else{
-            //             return callback(new Error('名称已存在'));
-            //         }
-            //     });
-            callback()
+            this.$axios.post('/api/mysql/name_validate', {
+                name: value,
+                id: this.Form.id
+                })
+                .then(res=>{
+                    if(res) {
+                        callback();
+                    }else{
+                        return callback(new Error('名称已存在'));
+                    }
+                });
+            // callback()
         }
       };
       var checkValue = (rule, value, callback) => {

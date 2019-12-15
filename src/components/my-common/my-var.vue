@@ -6,7 +6,7 @@
   import Vue from 'vue'
   import store from "../../store";
   Vue.prototype.$user_name = '用户名称';
-  Vue.prototype.$user_id = 0;
+  Vue.prototype.$user_id = 1;
   Vue.prototype.$api = store.state.api;
   Vue.prototype.$my_table ={
       case_list:[],

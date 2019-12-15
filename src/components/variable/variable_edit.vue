@@ -32,7 +32,7 @@
         }else {
             let update=false;
             if (this.Form.id) update=true;
-            this.$axios.post('/api/variable_validate', {
+            this.$axios.post('/api/variable/name_validate', {
                 name: value,
                 variable_id: this.Form.id,
                 update:update

@@ -30,9 +30,9 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }else {
-            this.$axios.post('/api/header_validate', {
+            this.$axios.post('/api/header/name_validate', {
                 name: value,
-                header_id: this.Form.id
+                id: this.Form.id
                 })
                 .then(res=>{
                     if(res) {
@@ -47,7 +47,7 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }else {
-            this.$axios.post('/api/header_value_validate', {
+            this.$axios.post('/api/header/value_validate', {
                 value: value
                 })
                 .then(res=>{

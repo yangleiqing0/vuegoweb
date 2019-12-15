@@ -28,9 +28,9 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }else {
-            this.$axios.post('/api/group_validate', {
+            this.$axios.post('/api/group/name_validate', {
                 name: value,
-                group_id: this.Form.id})
+                id: this.Form.id})
                 .then(res=>{
                     if(res) {
                         callback();

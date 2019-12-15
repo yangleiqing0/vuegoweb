@@ -26,6 +26,22 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.prototype.$axios = Axios;
 
+Axios.interceptors.request.use(res => {
+  // 对响应数据做处理
+  // console.log("对响应数据做处理")
+  if(res.method === 'post'){
+    if(that.$root.$user_id !== 0){
+      res.data['user_id'] = that.$root.$user_id
+    }
+  }else{
+    console.log(res.baseURL)
+  }
+
+  console.log('request',res, res.params, that.$root.$user_id);
+  return res
+
+});
+
 Axios.interceptors.response.use(res => {
   // 对响应数据做处理
   // console.log("对响应数据做处理", res)

@@ -185,7 +185,7 @@
           if (!value) {
             return callback(new Error('不能为空'));
           }else {
-              this.$axios.post('/api/case_validate', {
+              this.$axios.post('/api/case/name_validate', {
                   name: value,
                   case_id: this.Form.id})
                   .then(res=>{
@@ -201,7 +201,7 @@
           if (!value) {
               callback();
           }else {
-              this.$axios.post('/api/regular_validate', {
+              this.$axios.post('/api/case/regular_validate', {
                   regular: this.Form.regular})
                   .then(res=>{
                       if(res) {
@@ -212,16 +212,37 @@
                   });
           }
         };
+
+         var checkRegisterVariable = (rule, value, callback) => {
+          if (!value) {
+            callback();
+          }else {
+              let update=false;
+              if (this.Form.id) update=true;
+              this.$axios.post('/api/variable/name_validate', {
+                  register_variable: value,
+                  testcase_id: this.Form.id,
+                  update:update,
+                  })
+                  .then(res=>{
+                      if(res) {
+                          callback();
+                      }else{
+                          return callback(new Error('格式不对或变量已存在'));
+                      }
+                  });
+          }
+        };
         var checkHopeWait = (rule, value, callback) => {
             if (value) {
-                this.$axios.post('/api/hope_validate', {
+                this.$axios.post('/api/case/hope_validate', {
                     hope_result: value
                 })
                     .then(res => {
                         if (res) {
                             callback();
                         } else {
-                            return callback(new Error('格式错误,例如 包含:0'));
+                            return callback(new Error('格式错误,例如 包含:0,支持:包含/不包含/等于/不等于,可多个期望结果'));
                         }
                     });
             }else {callback()}
@@ -230,13 +251,13 @@
           if (!value) {
               return callback(new Error('不能为空'));
           }else {
-              this.$axios.post('/api/hope_validate', {
+              this.$axios.post('/api/case/hope_validate', {
                   hope_result: value})
                   .then(res=>{
                       if(res) {
                           callback();
                       }else{
-                          return callback(new Error('格式错误,例如 包含:0'));
+                          return callback(new Error('格式错误,例如 包含:0,支持:包含/不包含/等于/不等于,可多个期望结果'));
                       }
                   });
           }
@@ -295,6 +316,7 @@
             rules: {
                 name: [{ validator: checkName, trigger: 'blur' }],
                 regular: [{ validator: checkRegular, trigger: 'blur' }],
+                register_variable:[{ validator: checkRegisterVariable, trigger: 'blur' }],
                 hope_result:[{ validator: checkHope, trigger: 'blur' }],
                 old_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
                 new_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
