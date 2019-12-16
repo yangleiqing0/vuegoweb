@@ -187,7 +187,7 @@
           }else {
               this.$axios.post('/api/case/name_validate', {
                   name: value,
-                  case_id: this.Form.id})
+                  id: this.Form.id})
                   .then(res=>{
                       if(res) {
                           callback();
@@ -262,6 +262,26 @@
                   });
           }
         };
+        var checkSqlRegister = (rule, value, callback) => {
+          if (!value) {
+              callback();
+          }else {
+              if(this.Form.old_sql_register_variable === this.Form.new_sql_register_variable){
+                  return callback(new Error('变量名重复'));
+              }
+              this.$axios.post('/api/case/sql_variable_validate', {
+                  sql_variable: value,
+                  id:  this.Form.id
+              })
+                  .then(res=>{
+                      if(res) {
+                          callback();
+                      }else{
+                          return callback(new Error('格式不对或变量已存在'));
+                      }
+                  });
+          }
+        };
         return {
             typeNumber:{pattern: /^\d+\d*$/, message: '必须为正整数'},
             is_models:[{id:0,value:'否'},{id:1,value:'是'}],
@@ -320,6 +340,8 @@
                 hope_result:[{ validator: checkHope, trigger: 'blur' }],
                 old_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
                 new_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
+                old_sql_register_variable:[{ validator: checkSqlRegister, trigger: 'blur' }],
+                new_sql_register_variable:[{ validator: checkSqlRegister, trigger: 'blur' }],
                 wait : {
                     old_wait:[{ validator: checkHopeWait, trigger: 'blur' }],
                     new_wait:[{ validator: checkHopeWait, trigger: 'blur' }],
